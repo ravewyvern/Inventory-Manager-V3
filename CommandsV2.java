@@ -29,21 +29,21 @@ public class CommandsV2 {
      * Displays a list of all available commands.
      */
     public static void help() {
+        String[] commandNames = {"add", "remove", "view", "update", "help", "exit", "debug-add", "debug-resize", "debug-reset", "debug-empty", "stock"};
+        String[] commandDescriptions = {"Add an item to the inventory", "Remove an item from the inventory", "View the inventory", "Update an item in the inventory", "Display this message", "Exit the program", "Add items to the inventory", "Resize the inventory array", "Reset the inventory array", "Empty a slot in the inventory array", "View items with a quantity below a certain amount"};
         System.out.println("Commands:");
-        System.out.println("add - Add an item to the inventory");
-        System.out.println("remove - Remove an item from the inventory");
-        System.out.println("view - View the inventory");
-        System.out.println("update - Update an item in the inventory");
-        System.out.println("help - Display this message");
-        System.out.println("exit - Exit the program");
-
-        if (Main.debugMode) {
-            System.out.println();
-            System.out.println("Debug Commands:");
-            System.out.println("debug-add - Add items to the inventory for testing");
-            System.out.println("debug-resize - Resize the inventory array for testing");
-            System.out.println("debug-reset - Reset the inventory array for testing");
-            System.out.println("debug-empty - Empty a slot in the inventory array for testing");
+        for (int i = 0; i < commandNames.length; i++)
+        {
+            if (commandNames[i].charAt(0) == 'd' && commandNames[i].charAt(2) == 'e' && commandNames[i].charAt(2) == 'b' && commandNames[i].charAt(2) == 'u' && commandNames[i].charAt(4) == 'g') {
+                if (Main.debugMode)
+                {
+                    System.out.println(commandNames[i] + " - " + commandDescriptions[i]);
+                }
+            }
+            else
+            {
+                System.out.println(commandNames[i] + " - " + commandDescriptions[i]);
+            }
         }
     }
 
@@ -55,14 +55,15 @@ public class CommandsV2 {
         System.out.println("Inventory:");
         System.out.println("you have " + getTotalItems(items) + " items with a total value of $" + getTotalPrice(items));
         System.out.println();
-        System.out.println("Items.Item Name Quantity Price Catagory");
+        System.out.println("Number Name Quantity Price Catagory");
 
         //find the items in the inventory and displays them
         for (int i = 0; i < items.length; i++)
         {
-            if (items[i] != null && items[i].isOverwriteable())
+            if (items[i] != null && !items[i].isOverwriteable())
             {
                 System.out.println((i + 1) + ". " + items[i].getName() + " " + items[i].getQuantity() + " $" + items[i].getPrice() + " " + items[i].getCatagory());
+                System.out.println(Main.barLength(items[i].getQuantity(), 500));
                 if (i < items.length - 1)
                 {
                     System.out.println("--------------------");
@@ -213,5 +214,15 @@ public class CommandsV2 {
         }
         if (Main.debugMode) System.out.println("Items.Item updated to: " + Main.inventory[itemNumber - 1].toString());
         System.out.println(Main.inventory[itemNumber - 1].getName() + " updated successfully.");
+    }
+
+    public static void lowStock(Item[] items) {
+        int lowStockNumber = UtilityBelt.readInt("Look for items with equal or less than: ", 1, 500000);
+        System.out.println("Looking for items with equal or less than quantity than " + lowStockNumber);
+        for (int i = 0; i < items.length; i++) {
+            if (lowStockNumber >= items[i].getQuantity()) {
+                System.out.println("Low Stock: " + items[i].getName() + " has only " + items[i].getQuantity() + " items left");
+            }
+        }
     }
 }

@@ -1,12 +1,25 @@
 import Items.Item;
 
 import java.util.Scanner;
+import java.util.Random;
+
+/*
+TODO: add more commands to the IMS2 (like purchase item or switch items)
+TODO: make the view inventory sort by catagory
+TODO: add a list of catagories to choose from when adding an item
+TODO: Add more classes for different types of items
+TODO: turn each command into a class
+TODO: make program dynamically load commands
+*/
 
 public class Main {
 
-    /***** CONSTANT SECTION *****/
+    //DEBUG SETTINGS
+    public static final boolean debugMode = true; //set to true to enable debug mode for testing
+    public static final boolean autoAddItems = true; //automatically add items when the program is run
+    //END OF DEBUG SETTINGS
+
     public static boolean continueProgram = true;
-    public static final boolean debugMode = false; //set to true to enable debug mode for testing
     public static Item[] inventory;
 
     public static void main(String[] args)
@@ -37,6 +50,7 @@ public class Main {
         System.out.println("Inventory manager CLI started, type 'help' to get command list");
 
         if (debugMode) System.out.println("Debug mode is enabled, additional text will be displayed");
+        if (debugMode && autoAddItems) commandSearch("debug-add");
 
         // enters a loop that will continue until the continueProgram variable is false
         while (continueProgram)
@@ -78,15 +92,19 @@ public class Main {
                 System.out.println("Exiting IMS2...");
                 continueProgram = false;
                 break;
+            case "stock":
+                CommandsV2.lowStock(inventory);
+                break;
             case "debug-add":
                 //debug commands
                 if (debugMode) {
                     //useful if you want to add items to the inventory without going through the prompts
                     System.out.println("Debug mode is enabled, adding items to inventory...");
-                    CommandsV2.addItem("Apple", 0.99, 10, "Fruit");
-                    CommandsV2.addItem("Banana", 0.49, 20, "Yellow");
-                    CommandsV2.addItem("Orange", 0.79, 15, "Citrus");
-                    CommandsV2.addItem("Grapes", 2.99, 5, "Fruit");
+                    Random rand = new Random();
+                    CommandsV2.addItem("Apple", 0.99, rand.nextInt(100), "Fruit");
+                    CommandsV2.addItem("Banana", 0.49, rand.nextInt(100), "Yellow");
+                    CommandsV2.addItem("Orange", 0.79, rand.nextInt(100), "Citrus");
+                    CommandsV2.addItem("Grapes", 2.99, rand.nextInt(100), "Fruit");
                     break;
                 }
             case "debug-resize":
@@ -154,5 +172,63 @@ public class Main {
             newArray[i] = array[i];
         }
         return newArray;
+    }
+    public static String barLength(int charLength, int maxLength)
+    {
+
+        int extraLength = 0;
+        StringBuilder output = new StringBuilder();
+
+        //check if the length is greater than 500 and if so, set the extra length and the char length
+        if (charLength > maxLength)
+        {
+            extraLength = charLength - maxLength;
+            charLength = maxLength;
+        }
+        int saveCharLength = charLength;
+
+        saveCharLength /= 8;
+
+        while (saveCharLength > 0)
+        {
+            output.append("█");
+            saveCharLength--;
+        }
+
+        charLength %= 8;
+
+        switch (charLength)
+        {
+            case 0:
+                break;
+            case 1:
+                output.append("▏");
+                break;
+            case 2:
+                output.append("▎");
+                break;
+            case 3:
+                output.append("▍");
+                break;
+            case 4:
+                output.append("▌");
+                break;
+            case 5:
+                output.append("▋");
+                break;
+            case 6:
+                output.append("▊");
+                break;
+            case 7:
+                output.append("▉");
+                break;
+
+        }
+        if (extraLength != 0)
+        {
+            output.append(" + ").append(extraLength);
+        }
+
+        return output.toString();
     }
 }
