@@ -1,6 +1,5 @@
 package Main;
 
-import Commands.AddItems;
 import Commands.Command;
 import Items.Item;
 
@@ -176,7 +175,7 @@ public class Main {
         for (Command command : commandList) {
             if (command.getName().equalsIgnoreCase(inputCommand)) {
                 // Execute the command's run method
-                System.out.println("Executing command: " + command.getName());
+                if (debugMode) System.out.println("Executing command: " + command.getName());
                 command.run(items); // Pass the items array to the command
                 return; // Command found and executed, exit the method
             }

@@ -28,7 +28,7 @@ public class UpdateItems extends Command {
         System.out.println("2. Price");
         System.out.println("3. Quantity");
         System.out.println("4. Catagory");
-
+        //TODO: split into seperate method
         int editNumber = UtilityBelt.readInt("Enter the number of the part you want to update: ", 1, 4);
 
         //switch statement to determine which part of the item to update

@@ -23,8 +23,12 @@ public class LowStock extends Command {
     public void run(Item[] items) {
         int lowStockNumber = UtilityBelt.readInt("Look for items with equal or less than: ", 1, 500000);
         System.out.println("Looking for items with equal or less than quantity than " + lowStockNumber);
+        run(items, lowStockNumber);
+    }
+
+    public void run(Item[] items, int quantity) {
         for (int i = 0; i < items.length; i++) {
-            if (lowStockNumber >= items[i].getQuantity()) {
+            if (quantity >= items[i].getQuantity()) {
                 System.out.println("Low Stock: " + items[i].getName() + " has only " + items[i].getQuantity() + " items left");
             }
         }
