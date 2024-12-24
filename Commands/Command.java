@@ -1,75 +1,86 @@
 package Commands;
 import Items.Item;
+import Main.Main;
 
 import java.util.Objects;
 
-public class Command {
+public abstract class Command {
     private String name;
-    private String Description;
-    private boolean DebugCommand;
+    private String description;
+    private boolean debugCommand;
+    private String author;
+    private double version;
 
-    //setters and getters
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDebugCommand() {
+        return debugCommand;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public double getVersion() {
+        return version;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getDescription() {
-        return Description;
-    }
-
     public void setDescription(String description) {
-        Description = description;
-    }
-
-    public boolean isDebugCommand() {
-        return DebugCommand;
+        this.description = description;
     }
 
     public void setDebugCommand(boolean debugCommand) {
-        DebugCommand = debugCommand;
+        this.debugCommand = debugCommand;
     }
 
-    //tostring
-    @Override
-    public String toString() {
-        return "Command{" +
-                "name='" + name + '\'' +
-                ", Description='" + Description + '\'' +
-                ", DebugCommand=" + DebugCommand +
-                '}';
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    //equals and hashcode
+    public void setVersion(double version) {
+        this.version = version;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Command command = (Command) o;
-        return DebugCommand == command.DebugCommand && Objects.equals(name, command.name) && Objects.equals(Description, command.Description);
+        return debugCommand == command.debugCommand && Double.compare(version, command.version) == 0 && Objects.equals(name, command.name) && Objects.equals(description, command.description) && Objects.equals(author, command.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, Description, DebugCommand);
+        return Objects.hash(name, description, debugCommand, author, version);
     }
 
-    //constructors
-    public Command(String name, String description, boolean debugCommand) {
-        this.name = name;
-        Description = description;
-        DebugCommand = debugCommand;
+    @Override
+    public String toString() {
+        return "Command{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", debugCommand=" + debugCommand +
+                ", author='" + author + '\'' +
+                ", version=" + version +
+                '}';
     }
 
     public Command() {
         this.name = "None";
-        Description = "Empty description";
-        DebugCommand = false;
+        this.description = "None";
+        this.debugCommand = false;
+        this.author = "None";
+        this.version = 0.0;
     }
 
-    public void run(Item[] items) {
-        System.out.println("You shouldnt be seeing this");
-    }
+    public abstract void run(Item[] items);
 }
