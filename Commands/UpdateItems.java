@@ -49,4 +49,13 @@ public class UpdateItems extends Command {
         if (Main.debugMode) System.out.println("Items.Item updated to: " + Main.inventory[itemNumber - 1].toString());
         System.out.println(Main.inventory[itemNumber - 1].getName() + " updated successfully.");
     }
+
+    @Override
+    public void settings(Item[] items) {
+        System.out.println("This command does not have any settings.");
+    }
+
+    public void help(Item[] items) {
+        System.out.println("This command does not have a help section yet.");
+    }
 }

@@ -12,11 +12,12 @@ public class ModLoader extends Command {
     private final double version = 1.0; //The version of this comand
 
     public ModLoader() {
-        this.setName(name);
-        this.setDescription(description);
-        this.setDebugCommand(debugCommand);
-        this.setAuthor(author);
-        this.setVersion(version);
+        super(); // Call the Command constructor
+        this.setName(name); // Setting the name in the parent class
+        this.setDescription(description); // Setting the description in the parent class
+        this.setDebugCommand(debugCommand); // Setting whether it is a debug command
+        this.setAuthor(author); // Setting the author
+        this.setVersion(version); // Setting the version
     }
 
     @Override
@@ -41,5 +42,14 @@ public class ModLoader extends Command {
                 System.out.println();
             }
         }
+    }
+
+    @Override
+    public void settings(Item[] items) {
+        System.out.println("This command does not have any settings.");
+    }
+
+    public void help(Item[] items) {
+        System.out.println("This command does not have a help section yet.");
     }
 }

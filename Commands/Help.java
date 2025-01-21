@@ -1,5 +1,6 @@
 package Commands;
 import Items.Item;
+import java.util.Scanner;
 import Main.Main;
 
 public class Help extends Command {
@@ -30,5 +31,26 @@ public class Help extends Command {
                 System.out.println(command.getName() + " - " + command.getDescription());
             }
         }
+
+        if (Main.yesNoPrompt("Would you like to see more information on a command?")) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter the name of the command you would like to see more information on: ");
+            String commandName = scanner.nextLine();
+            for (Command command : Main.commandList) {
+                if (command.getName().equalsIgnoreCase(commandName)) {
+                    command.help(items);
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void settings(Item[] items) {
+        System.out.println("This command does not have any settings.");
+    }
+
+    public void help(Item[] items) {
+        System.out.println("This command can be used to get help on other commands.");
     }
 }

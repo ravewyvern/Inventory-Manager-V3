@@ -22,7 +22,7 @@ TODO: add back in debug commands
 public class Main {
 
     //DEBUG SETTINGS
-    public static final boolean debugMode = false; //set to true to enable debug mode for testing
+    public static final boolean debugMode = true; //set to true to enable debug mode for testing
     public static final boolean autoAddItems = false; //automatically add items when the program is run
     //END OF DEBUG SETTINGS
 
@@ -345,5 +345,15 @@ public class Main {
         }
 
         return output.toString();
+    }
+
+    public static boolean yesNoPrompt(String prompt) {
+        Scanner input = new Scanner(System.in);
+        System.out.print(prompt + " (Y/n): ");
+        String choice = input.next();
+        if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
+            return true;
+        }
+        return false;
     }
 }

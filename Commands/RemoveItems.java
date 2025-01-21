@@ -45,4 +45,13 @@ public class RemoveItems extends Command {
         Main.inventory = Main.resizeArray(Main.inventory, -1);
         if (Main.debugMode) System.out.println("inventory array resized to " + Main.inventory.length);
     }
+
+    @Override
+    public void settings(Item[] items) {
+        System.out.println("This command does not have any settings.");
+    }
+
+    public void help(Item[] items) {
+        System.out.println("This command does not have a help section yet.");
+    }
 }

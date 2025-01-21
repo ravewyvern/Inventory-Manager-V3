@@ -33,4 +33,13 @@ public class LowStock extends Command {
             }
         }
     }
+
+    @Override
+    public void settings(Item[] items) {
+        System.out.println("This command does not have any settings.");
+    }
+
+    public void help(Item[] items) {
+        System.out.println("This command does not have a help section yet.");
+    }
 }

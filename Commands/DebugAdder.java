@@ -1,6 +1,7 @@
 package Commands;
 
 import Items.Item;
+import java.util.Random;
 
 public class DebugAdder extends Command {
     // Command Info
@@ -21,6 +22,23 @@ public class DebugAdder extends Command {
 
     @Override
     public void run(Item[] items) {
-        System.out.println("coming soon");
+        System.out.println("Adding items...");
+        Random random = new Random();
+        AddItems.run("Apple", random.nextInt(9) + .99, random.nextInt(100), "Fruit");
+        AddItems.run("Banana", random.nextInt(4) + .99, random.nextInt(100), "Fruit");
+        AddItems.run("Orange", random.nextInt(5) + .99, random.nextInt(100), "Fruit");
+        AddItems.run("Shirt", random.nextInt(40) + .99, random.nextInt(100), "Clothing");
+        AddItems.run("Pants", random.nextInt(50) + .99, random.nextInt(100), "Clothing");
+        AddItems.run("Apple iPhone", random.nextInt(1200) + .99, random.nextInt(100), "Electronics");
+        AddItems.run("Samsung Galaxy", random.nextInt(1100) + .99, random.nextInt(100), "Electronics");
+    }
+
+    @Override
+    public void settings(Item[] items) {
+        System.out.println("This command will have settings soon");
+    }
+
+    public void help(Item[] items) {
+        System.out.println("This is a debug command which will add pre-defined items to the inventory.");
     }
 }

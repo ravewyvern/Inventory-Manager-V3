@@ -1,5 +1,6 @@
 package Commands;
 import Items.Item;
+import java.util.Scanner;
 import Main.Main;
 
 public class viewInventory extends Command {
@@ -19,6 +20,9 @@ public class viewInventory extends Command {
         this.setVersion(version); // Setting the version
     }
 
+    private int maxBarLength = 500;
+    private boolean showBarGraph = true;
+
     @Override
     public void run(Item[] items) {
         System.out.println("Inventory:");
@@ -32,7 +36,7 @@ public class viewInventory extends Command {
             if (items[i] != null && !items[i].isOverwriteable())
             {
                 System.out.println((i + 1) + ". " + items[i].getName() + " " + items[i].getQuantity() + " $" + items[i].getPrice() + " " + items[i].getCatagory());
-                System.out.println(Main.barLength(items[i].getQuantity(), 500));
+                if (showBarGraph) System.out.println(Main.barLength(items[i].getQuantity(), maxBarLength));
                 if (i < items.length - 1)
                 {
                     System.out.println("--------------------");
@@ -79,5 +83,34 @@ public class viewInventory extends Command {
         totalValue = (int) (totalValue * 100);
         totalValue /= 100;
         return totalValue;
+    }
+
+    @Override
+    public void settings(Item[] items) {
+        System.out.println("Settings for View Command:");
+        System.out.println("1. Show Bar Graph | Currently: " + showBarGraph);
+        System.out.println("2. Maximum bar graph value | Currently: " + maxBarLength);
+        System.out.println();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of the setting you would like to change: ");
+        switch (scanner.nextInt())
+        {
+            case 1:
+                showBarGraph = !showBarGraph;
+                System.out.println("Bar graph is now " + (showBarGraph ? "on" : "off"));
+                break;
+            case 2:
+                System.out.print("Enter the maximum value for the bar graph: ");
+                maxBarLength = scanner.nextInt();
+                System.out.println("Bar graph maximum value is now " + maxBarLength);
+                break;
+            default:
+                System.out.println("Invalid setting number.");
+                break;
+        }
+    }
+
+    public void help(Item[] items) {
+        System.out.println("This command does not have a help section yet.");
     }
 }

@@ -75,12 +75,16 @@ public abstract class Command {
     }
 
     public Command() {
-        this.name = "None";
-        this.description = "None";
+        this.name = "Failed to Load";
+        this.description = "Failed to Load";
         this.debugCommand = false;
-        this.author = "None";
+        this.author = "Failed to Load";
         this.version = 0.0;
     }
 
     public abstract void run(Item[] items);
+
+    public abstract void settings(Item[] items);
+
+    public abstract void help(Item[] items);
 }

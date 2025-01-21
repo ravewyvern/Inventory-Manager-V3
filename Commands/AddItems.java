@@ -47,4 +47,13 @@ public class AddItems extends Command {
             if (Main.debugMode) System.out.println("Items.Item added to index " + emptySlotNumber + "with the data: " + Main.inventory[emptySlotNumber].toString());
         }
     }
+
+    @Override
+    public void settings(Item[] items) {
+        System.out.println("This command does not have any settings.");
+    }
+
+    public void help(Item[] items) {
+        System.out.println("This command does not have a help section yet.");
+    }
 }
